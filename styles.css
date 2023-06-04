@@ -5,10 +5,15 @@
     padding: 0;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+}
+
 .screen {
     border: 1px solid black;
     width: 40vw;
-    margin: 20vh auto;
+    margin: 20vh auto 0 auto;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -24,4 +29,22 @@
 
 .curr {
     font-size: 2em;
+}
+
+.buttons {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid black;
+    width: 40vw;
+    margin: auto;
+}
+
+button {
+    flex-basis: 25%;
+    height: 3em;
+    font-size: x-large;
+}
+
+.clear, .equals {
+    flex-basis: 50%;
 }
