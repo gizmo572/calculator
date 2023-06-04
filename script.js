@@ -35,6 +35,15 @@ function operate(operator, num1, num2) {
     return output;
 }
 
-let num1
-let num2
+let num1 = ''
+let num2 = ''
 let operator
+
+document.querySelectorAll('.nums').forEach(num => {
+    num.addEventListener('click', () => {
+        if (!operator) {
+            num1 += num.innerHTML;
+        } else num2 += num.innerHTML;
+        console.log(num1, num2)
+    })
+})
