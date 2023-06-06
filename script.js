@@ -68,6 +68,20 @@ function opClick(op) {
     updateDisplay();
 }
 
+function backspace() {
+    if (!num2) return;
+    num2 = num2.slice(0,-1);
+    updateDisplay();
+}
+
+function equals() {
+    if (!(num1 && num2)) return;
+    num2 = operate(operator, parseFloat(num1), parseFloat(num2));
+    num1 = '';
+    operator = '';
+    updateDisplay();
+}
+
 let num1 = '';
 let num2 = '';
 let operator = '';
@@ -81,13 +95,7 @@ document.querySelectorAll('.operators').forEach(op => {
     op.addEventListener('click', () => opClick(op.innerHTML))
 })
 
-document.querySelector('.equals').addEventListener('click', () => {
-    if (!(num1 && num2)) return;
-    num2 = operate(operator, parseFloat(num1), parseFloat(num2));
-    num1 = '';
-    operator = '';
-    updateDisplay();
-})
+document.querySelector('.equals').addEventListener('click', equals)
 
 document.querySelector('.clear').addEventListener('click', () => {
     num1 = '';
@@ -96,18 +104,16 @@ document.querySelector('.clear').addEventListener('click', () => {
     updateDisplay();
 })
 
-document.querySelector('.delete').addEventListener('click', () => {
-    console.log('hi', num1, num2, typeof num2)
-    if (!num2) return;
-    num2 = num2.slice(0,-1);
-    updateDisplay();
-})
+document.querySelector('.delete').addEventListener('click', backspace)
 
 document.querySelector('.hidden').addEventListener('click', () => {
     document.querySelector('.hidden').classList.remove('nonono');
 })
 
 document.addEventListener('keydown', (e) => {
+    console.log(e.key)
     if (e.key.match(/[0-9.]/)) numClick(e.key);
     if (e.key.match(/[*/+-]/)) opClick(e.key);
+    if (e.key === 'Backspace') backspace();
+    if (e.key === 'Enter') equals();
 })
