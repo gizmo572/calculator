@@ -35,15 +35,55 @@ function operate(operator, num1, num2) {
     return output;
 }
 
+function updateDisplay() {
+    document.querySelector('.curr').innerHTML = num2;
+    document.querySelector('.prev').innerHTML = num1 + ' ' + operator;
+
+
+
+
+}
+
 let num1 = ''
 let num2 = ''
-let operator
+let operator = ''
+let prev = document.querySelector('.prev').innerHTML;
+let curr = document.querySelector('.curr').innerHTML;
+
 
 document.querySelectorAll('.nums').forEach(num => {
     num.addEventListener('click', () => {
-        if (!operator) {
-            num1 += num.innerHTML;
-        } else num2 += num.innerHTML;
-        console.log(num1, num2)
+        if (num.innerHTML === '.' && num2.includes('.')) return;
+        num2 += num.innerHTML;
+        document.querySelector('.curr').innerHTML = num2;
     })
+
+})
+
+document.querySelectorAll('.operators').forEach(op => {
+    op.addEventListener('click', () => {
+        console.log(num1, num2, operator)
+        if (num1 && num2) {
+            num1 = operate(operator, parseFloat(num1), parseFloat(num2));
+            console.log(num1)
+        } else if (operator) {
+            operator = op.innerHTML;
+            updateDisplay();
+            return;
+        } else {
+            num1 = num2;
+        }
+
+        num2 = '';
+        operator = op.innerHTML;
+        updateDisplay();
+    })
+})
+
+document.querySelector('.equals').addEventListener('click', () => {
+    if (!(num1 && num2)) return;
+    num2 = operate(operator, parseFloat(num1), parseFloat(num2));
+    num1 = '';
+    operator = '';
+    updateDisplay();
 })
