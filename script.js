@@ -45,23 +45,23 @@ function updateDisplay() {
 
 }
 
+function numClick(num) {
+    if (num === '.' && num2.includes('.')) return;
+    num2 += num;
+    document.querySelector('.curr').innerHTML = num2;
+}
+
 let num1 = '';
 let num2 = '';
 let operator = '';
 
 
 document.querySelectorAll('.nums').forEach(num => {
-    num.addEventListener('click', () => {
-        if (num.innerHTML === '.' && num2.includes('.')) return;
-        num2 += num.innerHTML;
-        document.querySelector('.curr').innerHTML = num2;
-    })
-
+    num.addEventListener('click', () => { numClick(num.innerHTML) })
 })
 
 document.querySelectorAll('.operators').forEach(op => {
     op.addEventListener('click', () => {
-        console.log(num1, num2, operator)
         if (num1 && num2) {
             num1 = operate(operator, parseFloat(num1), parseFloat(num2));
             console.log(num1)
@@ -103,4 +103,9 @@ document.querySelector('.delete').addEventListener('click', () => {
 
 document.querySelector('.hidden').addEventListener('click', () => {
     document.querySelector('.hidden').classList.remove('nonono');
+})
+
+document.addEventListener('keydown', (e) => {
+    if (e.key.match(/[0-9.]/)) numClick(e.key);
+// if (e.key.match(/[*/+-]/)) 
 })
