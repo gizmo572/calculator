@@ -51,6 +51,23 @@ function numClick(num) {
     document.querySelector('.curr').innerHTML = num2;
 }
 
+function opClick(op) {
+    if (num1 && num2) {
+        num1 = operate(operator, parseFloat(num1), parseFloat(num2));
+        console.log(num1)
+    } else if (operator) {
+        operator = op;
+        updateDisplay();
+        return;
+    } else {
+        num1 = num2;
+    }
+
+    num2 = '';
+    operator = op;
+    updateDisplay();
+}
+
 let num1 = '';
 let num2 = '';
 let operator = '';
@@ -61,22 +78,7 @@ document.querySelectorAll('.nums').forEach(num => {
 })
 
 document.querySelectorAll('.operators').forEach(op => {
-    op.addEventListener('click', () => {
-        if (num1 && num2) {
-            num1 = operate(operator, parseFloat(num1), parseFloat(num2));
-            console.log(num1)
-        } else if (operator) {
-            operator = op.innerHTML;
-            updateDisplay();
-            return;
-        } else {
-            num1 = num2;
-        }
-
-        num2 = '';
-        operator = op.innerHTML;
-        updateDisplay();
-    })
+    op.addEventListener('click', () => opClick(op.innerHTML))
 })
 
 document.querySelector('.equals').addEventListener('click', () => {
@@ -107,5 +109,5 @@ document.querySelector('.hidden').addEventListener('click', () => {
 
 document.addEventListener('keydown', (e) => {
     if (e.key.match(/[0-9.]/)) numClick(e.key);
-// if (e.key.match(/[*/+-]/)) 
+    if (e.key.match(/[*/+-]/)) opClick(e.key);
 })
