@@ -5,7 +5,7 @@
     padding: 0;
 }
 
-body {
+.container {
     display: flex;
     flex-direction: column;
     word-break: break-all;
@@ -13,6 +13,7 @@ body {
 }
 
 .screen {
+    position: relative;
     border: 1px solid black;
     width: 40vw;
     margin: 20vh auto 0 auto;
@@ -49,4 +50,24 @@ button {
 
 .clear, .equals {
     flex-basis: 50%;
+}
+
+.hidden {
+    visibility: hidden;
+    position: absolute;
+    width: 40vw;
+    height: 15vw;
+    left: 254px;
+    top: 164px;
+    font-size: xx-large;
+    color: red;
+    font-weight: bolder;
+    background: linear-gradient(blue, yellow, green, orange, purple);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nonono {
+    visibility: visible;
 }

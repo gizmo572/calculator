@@ -27,12 +27,16 @@ function operate(operator, num1, num2) {
             output = multiply(num1, num2);
             break;
         case '/':
+            if (num2 === 0) {
+                document.querySelector('.hidden').classList.add('nonono');
+                return num1.toString();
+            }
             output = divide(num1, num2);
             break;
         default:
             return;
     }
-    return output;
+    return output.toString();
 }
 
 function updateDisplay() {
@@ -91,7 +95,12 @@ document.querySelector('.clear').addEventListener('click', () => {
 })
 
 document.querySelector('.delete').addEventListener('click', () => {
+    console.log('hi', num1, num2, typeof num2)
     if (!num2) return;
     num2 = num2.slice(0,-1);
     updateDisplay();
+})
+
+document.querySelector('.hidden').addEventListener('click', () => {
+    document.querySelector('.hidden').classList.remove('nonono');
 })
