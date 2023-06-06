@@ -39,16 +39,11 @@ function updateDisplay() {
     document.querySelector('.curr').innerHTML = num2;
     document.querySelector('.prev').innerHTML = num1 + ' ' + operator;
 
-
-
-
 }
 
-let num1 = ''
-let num2 = ''
-let operator = ''
-let prev = document.querySelector('.prev').innerHTML;
-let curr = document.querySelector('.curr').innerHTML;
+let num1 = '';
+let num2 = '';
+let operator = '';
 
 
 document.querySelectorAll('.nums').forEach(num => {
@@ -85,5 +80,18 @@ document.querySelector('.equals').addEventListener('click', () => {
     num2 = operate(operator, parseFloat(num1), parseFloat(num2));
     num1 = '';
     operator = '';
+    updateDisplay();
+})
+
+document.querySelector('.clear').addEventListener('click', () => {
+    num1 = '';
+    num2 = '';
+    operator = '';
+    updateDisplay();
+})
+
+document.querySelector('.delete').addEventListener('click', () => {
+    if (!num2) return;
+    num2 = num2.slice(0,-1);
     updateDisplay();
 })
