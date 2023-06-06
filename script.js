@@ -55,7 +55,7 @@ function opClick(op) {
     if (num1 && num2) {
         num1 = operate(operator, parseFloat(num1), parseFloat(num2));
         console.log(num1)
-    } else if (operator) {
+    } else if (operator && !operator.includes('=')) {
         operator = op;
         updateDisplay();
         return;
@@ -76,8 +76,16 @@ function backspace() {
 
 function equals() {
     if (!(num1 && num2)) return;
+    let temp = `${num1} ${operator} ${num2} =`
     num2 = operate(operator, parseFloat(num1), parseFloat(num2));
     num1 = '';
+    operator = temp;
+    updateDisplay();
+}
+
+function clear() {
+    num1 = '';
+    num2 = '';
     operator = '';
     updateDisplay();
 }
@@ -97,12 +105,7 @@ document.querySelectorAll('.operators').forEach(op => {
 
 document.querySelector('.equals').addEventListener('click', equals)
 
-document.querySelector('.clear').addEventListener('click', () => {
-    num1 = '';
-    num2 = '';
-    operator = '';
-    updateDisplay();
-})
+document.querySelector('.clear').addEventListener('click', clear)
 
 document.querySelector('.delete').addEventListener('click', backspace)
 
@@ -116,4 +119,5 @@ document.addEventListener('keydown', (e) => {
     if (e.key.match(/[*/+-]/)) opClick(e.key);
     if (e.key === 'Backspace') backspace();
     if (e.key === 'Enter') equals();
+    if (e.key === '`') clear();
 })
